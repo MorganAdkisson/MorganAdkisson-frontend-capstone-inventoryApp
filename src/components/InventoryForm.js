@@ -1,7 +1,10 @@
+import React from "react";
 import { DatePicker, Select, Divider, Form, Button } from "antd";
 import { useState } from "react";
 import AddTank from "./AddTank";
 const { Option } = Select;
+
+const dateFormat = "MM/DD/YYYY";
 
 const defaultInventory = {
   inv_date: null,
@@ -12,34 +15,31 @@ const defaultInventory = {
   total_animals: null,
   shell_lengths: "",
 };
-const dateFormat = "MM/DD/YYYY";
 
 const InventoryForm = (props) => {
-  // const [form] = Form.useForm();
   const [inventoryForm, setInventoryForm] = useState(defaultInventory);
 
-  const onChange = (event) => {
-    // event.preventDefault();
-    console.log(event.target);
-    console.log(event.target.value);
-
-    const stateName = event.target.name;
-    const inputValue = event.target.value;
-
-    const newInventory = { ...inventoryForm };
-    newInventory[stateName] = inputValue;
-
-    setInventoryForm(newInventory);
+  const formUpdateDate = (value) => {
+    inventoryForm["inv_date"] = value;
+    setInventoryForm(inventoryForm);
     console.log(inventoryForm);
   };
 
-  const onSubmit = (event) => {
-    event.preventDefault();
-    props.addInvCallback(inventoryForm);
+  const formUpdateSelect = (value, event) => {
+    inventoryForm[event.name] = value;
+    setInventoryForm(inventoryForm);
+    console.log(inventoryForm);
   };
-
+  // console.log(inventoryForm);
+  const handleSubmit = (event) => {
+    console.log("Submit!");
+    // event.preventDefault();
+    // console.log(inventoryForm);
+    // props.addInvCallback(inventoryForm);
+  };
+  // console.log(inventoryForm);
   return (
-    <Form onSubmit={onSubmit} autoComplete="off">
+    <Form onFinish={handleSubmit} autoComplete="off">
       <div className="top-section">
         <Divider orientation="left">General Inventory Information</Divider>
         <Form.Item
@@ -49,39 +49,64 @@ const InventoryForm = (props) => {
           <Select
             status="warning"
             style={{ width: "20%" }}
-            name="facilty"
-            onChange={onChange}
+            onSelect={(value, event) => formUpdateSelect(value, event)}
           >
-            <Option value="PTMSC">Port Townsend Marine Science Center</Option>
-            <Option value="SA">Seattle Aquarium</Option>
+            <Option name="facility" value="PTMSC">
+              Port Townsend Marine Science Center
+            </Option>
+            <Option name="facility" value="SA">
+              Seattle Aquarium
+            </Option>
           </Select>
         </Form.Item>
         <Form.Item
-          name="task_id"
           label="Inventory ID"
           rules={[{ required: true, message: "Missing area" }]}
         >
-          <Select status="warning" style={{ width: "20%" }} onChange={onChange}>
-            <Option value="Inventory_0">Inventory 0</Option>
-            <Option value="Inventory_1">Inventory 1</Option>
-            <Option value="Inventory_2">Inventory 2</Option>
-            <Option value="Inventory_3">Inventory 3</Option>
-            <Option value="Inventory_4">Inventory 4</Option>
-            <Option value="Inventory_5">Inventory 5</Option>
+          <Select
+            status="warning"
+            style={{ width: "20%" }}
+            name="task_id"
+            onSelect={(value, event) => formUpdateSelect(value, event)}
+          >
+            <Option value="Inventory_0" name="task_id">
+              Inventory 0
+            </Option>
+            <Option value="Inventory_1" name="task_id">
+              Inventory 1
+            </Option>
+            <Option value="Inventory_2" name="task_id">
+              Inventory 2
+            </Option>
+            <Option value="Inventory_3" name="task_id">
+              Inventory 3
+            </Option>
+            <Option value="Inventory_4" name="task_id">
+              Inventory 4
+            </Option>
+            <Option value="Inventory_5" name="task_id">
+              Inventory 5
+            </Option>
           </Select>
         </Form.Item>
         <Form.Item
-          name="inv_date"
           label="Inventory Date"
           rules={[{ required: true, message: "Missing area" }]}
-          onChange={onChange}
         >
-          <DatePicker onChange={onChange} format={dateFormat} size="large" />
+          <DatePicker
+            name="inv_date"
+            format={dateFormat}
+            size="large"
+            onChange={(value, dateString) => formUpdateDate(dateString)}
+          />
         </Form.Item>
       </div>
       <div className="bottom-section">
         <Divider orientation="left">Tank Counts and Shell Lengths</Divider>
-        <AddTank onChange={onChange} />
+        <AddTank
+          stateInvForm={inventoryForm}
+          setInventoryForm={setInventoryForm}
+        />
       </div>
       <Form.Item>
         <Button type="primary" htmlType="submit">

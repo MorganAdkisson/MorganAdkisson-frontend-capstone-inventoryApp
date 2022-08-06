@@ -15,11 +15,6 @@ const URL = "https://adkisson-capstone-front-end.herokuapp.com/inventory";
 const { Header, Footer, Content } = Layout;
 const { Title } = Typography;
 
-// const addInventory = (inventoryData) => {
-//   axios
-//   .post()
-// }
-
 function App() {
   const addInventory = (submittedForm) => {
     axios

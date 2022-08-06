@@ -1,19 +1,11 @@
 import "./SideBar.css";
 import React, { useState } from "react";
 import { Menu, Layout } from "antd";
-import {
-  BrowserRouter as Router,
-  Route,
-  Routes,
-  useLocation,
-  useNavigate,
-} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import {
   HomeOutlined,
   FormOutlined,
   DatabaseOutlined,
-  PlusCircleOutlined,
-  CaretRightFilled,
 } from "@ant-design/icons";
 
 const { Sider } = Layout;
@@ -28,15 +20,6 @@ const { Sider } = Layout;
 const SideBar = () => {
   const [collapsed, setCollapsed] = useState(false);
   let navigate = useNavigate();
-  const selectedKey = useLocation().pathname;
-
-  const highlight = () => {
-    if (selectedKey === "/") {
-      return ["1"];
-    } else if (selectedKey === "/inventory") {
-      return ["2"];
-    }
-  };
 
   return (
     <Sider
@@ -50,7 +33,6 @@ const SideBar = () => {
       <Menu
         theme="dark"
         defaultSelectedKeys={["1"]}
-        selectedKeys={highlight()}
         mode="inline"
         items={[
           {

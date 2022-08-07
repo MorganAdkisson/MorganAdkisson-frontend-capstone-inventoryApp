@@ -25,10 +25,7 @@ function AddTank(props) {
     // console.log(invForm);
   }, [familyData]);
 
-  const test = (event) => {
-    console.log(event.target);
-  };
-
+  // How to leverage field index to create unique inventory objects to avoid overriding data.
   return (
     <Form.List name="fields">
       {(fields, { add, remove }) => {
@@ -50,7 +47,7 @@ function AddTank(props) {
                   label="Family"
                   rules={[{ required: true, message: "Required Field" }]}
                 >
-                  <Input.Group compact name="family" onChange={test}>
+                  <Input.Group compact name="family">
                     <Input
                       placeholder="♀"
                       name="female"

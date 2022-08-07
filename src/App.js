@@ -3,7 +3,7 @@ import HomePage from "./components/HomePage";
 import DataPage from "./components/DataPage";
 import InventoryPage from "./components/InventoryPage";
 import SideBar from "./components/SideBar";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "antd/dist/antd.min.css";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { Layout, Button, Typography } from "antd";
@@ -16,6 +16,34 @@ const { Header, Footer, Content } = Layout;
 const { Title } = Typography;
 
 function App() {
+  // Data
+  const [invData, setData] = useState([]);
+  const fetchData = () => {
+    axios
+      .get(`${URL}`)
+      .then((resp) => {
+        const responseData = [...resp.data];
+        console.log(responseData);
+        const newData = responseData.map((row) => {
+          return {
+            inv_date: row.inv_date,
+            family: row.family,
+            facility: row.facility,
+            tank: row.tank,
+            task_id: row.task_id,
+            total_animals: row.total_animals,
+            shell_lengths: row.shell_lengths,
+          };
+        });
+        setData(newData);
+      })
+      .catch((err) => {
+        alert("Unable to access inventory data!");
+      });
+  };
+  useEffect(fetchData, []);
+
+  //  Inventory
   const addInventory = (submittedForm) => {
     axios
       .post(`${URL}`, submittedForm)
@@ -71,7 +99,11 @@ function App() {
                     path="/inventory"
                     element={<InventoryPage addInvCallback={addInventory} />}
                   />
-                  <Route exact path="/data" element={<DataPage />} />
+                  <Route
+                    exact
+                    path="/data"
+                    element={<DataPage data={invData} />}
+                  />
                 </Routes>
               </Content>
               <Footer

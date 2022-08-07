@@ -1,7 +1,10 @@
-function Data() {
+import React from "react";
+import DataTable from "./DataTable";
+
+function Data(props) {
   return (
     <div>
-      <h1>Data Page</h1>
+      <DataTable data={props.data} />
     </div>
   );
 }

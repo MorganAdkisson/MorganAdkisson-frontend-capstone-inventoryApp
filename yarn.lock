@@ -1059,7 +1059,7 @@
     core-js-pure "^3.20.2"
     regenerator-runtime "^0.13.4"
 
-"@babel/runtime@^7.10.1", "@babel/runtime@^7.10.2", "@babel/runtime@^7.10.4", "@babel/runtime@^7.11.1", "@babel/runtime@^7.11.2", "@babel/runtime@^7.12.5", "@babel/runtime@^7.13.10", "@babel/runtime@^7.15.4", "@babel/runtime@^7.16.3", "@babel/runtime@^7.17.2", "@babel/runtime@^7.17.9", "@babel/runtime@^7.18.0", "@babel/runtime@^7.18.3", "@babel/runtime@^7.18.6", "@babel/runtime@^7.18.9", "@babel/runtime@^7.3.1", "@babel/runtime@^7.4.4", "@babel/runtime@^7.5.5", "@babel/runtime@^7.7.6", "@babel/runtime@^7.8.3", "@babel/runtime@^7.8.4", "@babel/runtime@^7.8.7", "@babel/runtime@^7.9.2":
+"@babel/runtime@^7.10.1", "@babel/runtime@^7.10.2", "@babel/runtime@^7.10.4", "@babel/runtime@^7.11.1", "@babel/runtime@^7.11.2", "@babel/runtime@^7.12.5", "@babel/runtime@^7.13.10", "@babel/runtime@^7.14.0", "@babel/runtime@^7.15.4", "@babel/runtime@^7.16.3", "@babel/runtime@^7.17.2", "@babel/runtime@^7.17.9", "@babel/runtime@^7.18.0", "@babel/runtime@^7.18.3", "@babel/runtime@^7.18.6", "@babel/runtime@^7.18.9", "@babel/runtime@^7.3.1", "@babel/runtime@^7.4.4", "@babel/runtime@^7.5.5", "@babel/runtime@^7.7.6", "@babel/runtime@^7.8.3", "@babel/runtime@^7.8.4", "@babel/runtime@^7.8.7", "@babel/runtime@^7.9.2":
   version "7.18.9"
   resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.18.9.tgz#b4fcfce55db3d2e5e080d2490f608a3b9f407f4a"
   integrity sha512-lkqXDcvlFT5rvEjiu6+QYO+1GXrEHRo2LOtS7E4GtX5ESIZOgepqsZBVIj6Pv+a6zqsya9VCgiK1KAK4BvJDAw==
@@ -1711,6 +1711,16 @@
     react-double-scrollbar "0.0.15"
     uuid "^8.3.2"
 
+"@material-table/exporters@^1.0.12":
+  version "1.0.12"
+  resolved "https://registry.yarnpkg.com/@material-table/exporters/-/exporters-1.0.12.tgz#224b5aeb3c6ccba5059c6172923f3e121199fdad"
+  integrity sha512-ygqSAT1gZUM4fiQXOS4g/3WfYSrRb7keCM+AsImGO7pkZo0147/L9H3033xNEO7B5DqLXB9yn70Sal4ysFFb3Q==
+  dependencies:
+    filefy "^0.1.10"
+    jest-environment-jsdom "^27.4.4"
+    jspdf "^2.2.0"
+    jspdf-autotable "^3.5.13"
+
 "@material-ui/core@^4.12.4":
   version "4.12.4"
   resolved "https://registry.yarnpkg.com/@material-ui/core/-/core-4.12.4.tgz#4ac17488e8fcaf55eb6a7f5efb2a131e10138a73"
@@ -1789,7 +1799,7 @@
     prop-types "^15.8.1"
     react-is "^18.2.0"
 
-"@mui/icons-material@>=5.0.0":
+"@mui/icons-material@>=5.0.0", "@mui/icons-material@^5.8.4":
   version "5.8.4"
   resolved "https://registry.yarnpkg.com/@mui/icons-material/-/icons-material-5.8.4.tgz#3f2907c9f8f5ce4d754cb8fb4b68b5a1abf4d095"
   integrity sha512-9Z/vyj2szvEhGWDvb+gG875bOGm8b8rlHBKOD1+nA3PcgC3fV6W1AU6pfOorPeBfH2X4mb9Boe97vHvaSndQvA==
@@ -4329,7 +4339,7 @@ domhandler@^4.0.0, domhandler@^4.2.0, domhandler@^4.3.1:
   dependencies:
     domelementtype "^2.2.0"
 
-dompurify@^2.0.12:
+dompurify@^2.0.12, dompurify@^2.2.0:
   version "2.3.10"
   resolved "https://registry.yarnpkg.com/dompurify/-/dompurify-2.3.10.tgz#901f7390ffe16a91a5a556b94043314cd4850385"
   integrity sha512-o7Fg/AgC7p/XpKjf/+RC3Ok6k4St5F7Q6q6+Nnm3p2zGWioAY6dh0CbbuwOhH2UcSzKsdniE/YnE2/92JcsA+g==
@@ -4928,6 +4938,11 @@ fb-watchman@^2.0.0:
   dependencies:
     bser "2.1.1"
 
+fflate@^0.4.8:
+  version "0.4.8"
+  resolved "https://registry.yarnpkg.com/fflate/-/fflate-0.4.8.tgz#f90b82aefbd8ac174213abb338bd7ef848f0f5ae"
+  integrity sha512-FJqqoDBR00Mdj9ppamLa/Y7vxm+PRmNWA67N846RvsoYVMKB4q3y/de5PA7gUmRMYK/8CMz2GDZQmCRN1wBcWA==
+
 file-entry-cache@^6.0.1:
   version "6.0.1"
   resolved "https://registry.yarnpkg.com/file-entry-cache/-/file-entry-cache-6.0.1.tgz#211b2dd9659cb0394b073e7323ac3c933d522027"
@@ -4947,6 +4962,11 @@ filefy@0.1.10:
   version "0.1.10"
   resolved "https://registry.yarnpkg.com/filefy/-/filefy-0.1.10.tgz#174677c8e2fa5bc39a3af0ed6fb492f16b8fbf42"
   integrity sha512-VgoRVOOY1WkTpWH+KBy8zcU1G7uQTVsXqhWEgzryB9A5hg2aqCyZ6aQ/5PSzlqM5+6cnVrX6oYV0XqD3HZSnmQ==
+
+filefy@^0.1.10:
+  version "0.1.11"
+  resolved "https://registry.yarnpkg.com/filefy/-/filefy-0.1.11.tgz#6b4df1f90e8861f8ca12d3e9b1458b289a4add74"
+  integrity sha512-gPcFFtRTcgllmGUKMyW1tSp4RlK2CTf9NyJZSCEuAfuH9siE45UWVwb75Uoi9OP81+FZq/4Se61dVlU3nk/TOA==
 
 filelist@^1.0.1:
   version "1.0.4"
@@ -5969,7 +5989,7 @@ jest-each@^27.5.1:
     jest-util "^27.5.1"
     pretty-format "^27.5.1"
 
-jest-environment-jsdom@^27.5.1:
+jest-environment-jsdom@^27.4.4, jest-environment-jsdom@^27.5.1:
   version "27.5.1"
   resolved "https://registry.yarnpkg.com/jest-environment-jsdom/-/jest-environment-jsdom-27.5.1.tgz#ea9ccd1fc610209655a77898f86b2b559516a546"
   integrity sha512-TFBvkTC1Hnnnrka/fUb56atfDtJ9VMZ94JkjTbggl1PEpwrYtUBKMezB3inLmWqQsXYLcMwNoDQwoBTAvFfsfw==
@@ -6482,6 +6502,11 @@ jspdf-autotable@3.5.9:
   resolved "https://registry.yarnpkg.com/jspdf-autotable/-/jspdf-autotable-3.5.9.tgz#8a625ef2aead44271da95e9f649843c401536925"
   integrity sha512-ZRfiI5P7leJuWmvC0jGVXu227m68C2Jfz1dkDckshmDYDeVFCGxwIBYdCUXJ8Eb2CyFQC2ok82fEWO+xRDovDQ==
 
+jspdf-autotable@^3.5.13:
+  version "3.5.25"
+  resolved "https://registry.yarnpkg.com/jspdf-autotable/-/jspdf-autotable-3.5.25.tgz#c87faf474d3b4e3fa158c44b70af5dd07d37a02f"
+  integrity sha512-BIbDd/cilRbVm5PmR+ZonolSqRtm0AvZDpTz+rrWed7BnFj5mqF7x7lkxDAMzPudLapktHUk6cxipcvUzal8cg==
+
 jspdf@2.1.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/jspdf/-/jspdf-2.1.0.tgz#2322f8644bc41845b3abe20db4c3ca0adeadb84c"
@@ -6493,6 +6518,21 @@ jspdf@2.1.0:
     canvg "^3.0.6"
     core-js "^3.6.0"
     dompurify "^2.0.12"
+    html2canvas "^1.0.0-rc.5"
+
+jspdf@^2.2.0:
+  version "2.5.1"
+  resolved "https://registry.yarnpkg.com/jspdf/-/jspdf-2.5.1.tgz#00c85250abf5447a05f3b32ab9935ab4a56592cc"
+  integrity sha512-hXObxz7ZqoyhxET78+XR34Xu2qFGrJJ2I2bE5w4SM8eFaFEkW2xcGRVUss360fYelwRSid/jT078kbNvmoW0QA==
+  dependencies:
+    "@babel/runtime" "^7.14.0"
+    atob "^2.1.2"
+    btoa "^1.2.1"
+    fflate "^0.4.8"
+  optionalDependencies:
+    canvg "^3.0.6"
+    core-js "^3.6.0"
+    dompurify "^2.2.0"
     html2canvas "^1.0.0-rc.5"
 
 jss-plugin-camel-case@^10.5.1, jss-plugin-camel-case@^10.9.1:

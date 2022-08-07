@@ -1,5 +1,6 @@
 import React from "react";
 import MaterialTable from "@material-table/core";
+import { ExportCsv, ExportPdf } from "@material-table/exporters";
 
 function DataTable(props) {
   const tableColumns = [
@@ -19,7 +20,19 @@ function DataTable(props) {
         columns={tableColumns}
         data={props.data}
         options={{
-          exportButton: true,
+          toolbar: true,
+          exportMenu: [
+            {
+              label: "Export CSV",
+              exportFunc: (cols, datas) =>
+                ExportCsv(cols, datas, "myCsvFileName"),
+            },
+            {
+              label: "Export PDF",
+              exportFunc: (cols, datas) =>
+                ExportPdf(cols, datas, "myPdfFileName"),
+            },
+          ],
         }}
       />
     </div>

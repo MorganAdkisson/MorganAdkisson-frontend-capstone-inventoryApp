@@ -5,10 +5,11 @@ import InventoryPage from "./components/InventoryPage";
 import SideBar from "./components/SideBar";
 import React, { useEffect, useState } from "react";
 import "antd/dist/antd.min.css";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import { Layout, Button, Typography } from "antd";
-import { PlusCircleOutlined } from "@ant-design/icons";
+import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
+import { Layout, Typography } from "antd";
 import axios from "axios";
+import PostAddIcon from "@mui/icons-material/PostAdd";
+import Button from "@material-ui/core/Button";
 // import logo from "./images/logo-placeholder.png";
 const URL = "https://adkisson-capstone-front-end.herokuapp.com/inventory";
 
@@ -23,7 +24,6 @@ function App() {
       .get(`${URL}`)
       .then((resp) => {
         const responseData = [...resp.data];
-        console.log(responseData);
         const newData = responseData.map((row) => {
           return {
             inv_date: row.inv_date,
@@ -65,8 +65,10 @@ function App() {
             </Title>
             <Button
               className="inventory-btn"
-              type="primary"
-              icon={<PlusCircleOutlined />}
+              component={Link}
+              to="/inventory"
+              variant="contained"
+              startIcon={<PostAddIcon />}
             >
               Record New Inventory
             </Button>

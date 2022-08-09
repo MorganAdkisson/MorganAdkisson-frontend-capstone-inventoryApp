@@ -70,3 +70,8 @@
 .title {
   color: whitesmoke;
 }
+
+.inventory-btn {
+  text-align: center;
+  font-size: 10px;
+}

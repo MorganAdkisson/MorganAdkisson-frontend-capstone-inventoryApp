@@ -20,7 +20,6 @@ function DataTable(props) {
         columns={tableColumns}
         data={props.data}
         options={{
-          toolbar: true,
           exportMenu: [
             {
               label: "Export CSV",

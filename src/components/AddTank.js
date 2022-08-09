@@ -2,128 +2,174 @@ import React, { useState, useEffect } from "react";
 import { MinusCircleOutlined, PlusOutlined } from "@ant-design/icons";
 import { Form, Divider, Button, Select, Input } from "antd";
 
+const defaultTank = {
+  tank: "",
+  family: "",
+  total_animals: null,
+  shell_lengths: [],
+};
+
 function AddTank(props) {
-  const invForm = props.stateInvForm;
-  const [familyData, setFamilyData] = useState([{ female: "", male: "" }]);
+  const [invList, setInvList] = useState([{ ...defaultTank }]);
   const [shellLengths, setShellLengths] = useState([]);
 
-  const formUpdateInput = (event) => {
-    invForm[event.target.name] = event.target.value;
-    props.setInventoryForm(invForm);
-    console.log(invForm);
+  const handleChange = (event, index) => {
+    const { name, value } = event.target;
+    const newList = [...invList];
+    if (name === "shell_lengths") {
+      newList[index][name] = [...newList[index][name], value];
+      setInvList(newList);
+    } else if (name === "family") {
+      newList[index]["family"] = value.toUpperCase();
+    } else {
+      newList[index][name] = value;
+      setInvList(newList);
+    }
+  };
+  console.log(invList);
+
+  const handleTankAdd = () => {
+    setInvList([...invList, { ...defaultTank }]);
   };
 
-  const formatFamily = (event) => {
-    let updatedFormat = { ...familyData };
-    updatedFormat[event.target.name] = event.target.value.toUpperCase();
-    setFamilyData(updatedFormat);
+  const handleTankRemove = (index) => {
+    const newList = [...invList];
+    newList.splice(index, 1);
+    setInvList(newList);
   };
 
-  useEffect(() => {
-    invForm["family"] = `${familyData.female} X ${familyData.male}`;
-    props.setInventoryForm(invForm);
-    // console.log(invForm);
-  }, [familyData]);
-
-  // How to leverage field index to create unique inventory objects to avoid overriding data.
+  // How to leverage field index to create unique inventory objects to avoid overriding data?
   return (
-    <Form.List name="fields">
-      {(fields, { add, remove }) => {
-        return (
-          <div>
-            {fields.map((field, index) => (
-              <div key={field.key}>
-                <Form.Item
-                  label="Tank"
-                  rules={[{ required: true, message: "Required Field" }]}
-                >
-                  <Input
-                    style={{ width: 200 }}
-                    name="tank"
-                    onChange={formUpdateInput}
-                  />
-                </Form.Item>
-                <Form.Item
-                  label="Family"
-                  rules={[{ required: true, message: "Required Field" }]}
-                >
-                  <Input.Group compact name="family">
-                    <Input
-                      placeholder="♀"
-                      name="female"
-                      style={{ width: 150, textAlign: "center" }}
-                      onChange={formatFamily}
-                    />
-                    <Input
-                      placeholder="x"
-                      style={{
-                        width: 30,
-                        borderLeft: 0,
-                        borderRight: 0,
-                        pointerEvents: "none",
-                      }}
-                      disabled
-                    />
-                    <Input
-                      placeholder="♂"
-                      name="male"
-                      style={{ width: 150, textAlign: "center" }}
-                      onChange={formatFamily}
-                    />
-                  </Input.Group>
-                </Form.Item>
-                <Form.Item
-                  label="Total Animals"
-                  rules={[{ required: true, message: "Required Field" }]}
-                >
-                  <Input
-                    style={{ width: 200 }}
-                    name="total_animals"
-                    onChange={formUpdateInput}
-                  />
-                </Form.Item>
-                <Form.Item
-                  // name="shell_lengths"
-                  label="Shell Lengths"
-                  rules={[{ required: true, message: "Required Field" }]}
-                >
-                  <Input style={{ width: 100 }} />
-                  <Input style={{ width: 100 }} />
-                  <Input style={{ width: 100 }} />
-                  <Input style={{ width: 100 }} />
-                  <Input style={{ width: 100 }} />
-                  <Input style={{ width: 100 }} />
-                  <Input style={{ width: 100 }} />
-                  <Input style={{ width: 100 }} />
-                  <Input style={{ width: 100 }} />
-                  <Input style={{ width: 100 }} />
-                </Form.Item>
-                {fields.length > 0 ? (
-                  <Button
-                    type="danger"
-                    className="dynamic-delete-button"
-                    onClick={() => remove(field.name)}
-                    icon={<MinusCircleOutlined />}
-                  >
-                    Remove Above Field
-                  </Button>
-                ) : null}
-                <Divider />
-              </div>
-            ))}
-            <Form.Item>
+    <div>
+      {invList.map((singleTank, index) => (
+        <div key={index}>
+          <Form.Item
+            label="Tank"
+            rules={[{ required: true, message: "Required Field" }]}
+          >
+            <Input
+              style={{ width: 200 }}
+              name="tank"
+              value={singleTank.tank}
+              onChange={(e) => handleChange(e, index)}
+            />
+          </Form.Item>
+          <Form.Item
+            label="Family"
+            rules={[{ required: true, message: "Required Field" }]}
+          >
+            {/* <Input.Group compact name="family"> */}
+            <Input
+              placeholder="♀ x ♂"
+              name="family"
+              style={{ width: 150, textAlign: "center" }}
+              onChange={(e) => handleChange(e, index)}
+            />
+            {/* <Input
+                placeholder="x"
+                style={{
+                  width: 30,
+                  borderLeft: 0,
+                  borderRight: 0,
+                  pointerEvents: "none",
+                }}
+                disabled
+              />
+              <Input
+                placeholder="♂"
+                name="male"
+                style={{ width: 150, textAlign: "center" }}
+                onChange={(e) => handleChange(e, index)}
+              />
+            </Input.Group> */}
+          </Form.Item>
+          <Form.Item
+            label="Total Animals"
+            rules={[{ required: true, message: "Required Field" }]}
+          >
+            <Input
+              style={{ width: 200 }}
+              name="total_animals"
+              onChange={(e) => handleChange(e, index)}
+            />
+          </Form.Item>
+          {/* {invList.shell_lengths.map((singleLength, index) => ( */}
+          <Form.Item label="Shell Lengths">
+            <Input
+              style={{ width: 100 }}
+              onChange={(e) => handleChange(e, index)}
+              name="shell_lengths"
+            />
+            <Input
+              style={{ width: 100 }}
+              onChange={(e) => handleChange(e, index)}
+              name="shell_lengths"
+            />
+            <Input
+              style={{ width: 100 }}
+              onChange={(e) => handleChange(e, index)}
+            />
+            <Input
+              style={{ width: 100 }}
+              onChange={(e) => handleChange(e, index)}
+            />
+            <Input
+              style={{ width: 100 }}
+              onChange={(e) => handleChange(e, index)}
+              name="shell_lengths"
+            />
+            <Input
+              style={{ width: 100 }}
+              onChange={(e) => handleChange(e, index)}
+              name="shell_lengths"
+            />
+            <Input
+              style={{ width: 100 }}
+              onChange={(e) => handleChange(e, index)}
+              name="shell_lengths"
+            />
+            <Input
+              style={{ width: 100 }}
+              onChange={(e) => handleChange(e, index)}
+              name="shell_lengths"
+            />
+            <Input
+              style={{ width: 100 }}
+              onChange={(e) => handleChange(e, index)}
+              name="shell_lengths"
+            />
+            <Input
+              style={{ width: 100 }}
+              onChange={(e) => handleChange(e, index)}
+              name="shell_lengths"
+            />
+          </Form.Item>
+          {/* ))} */}
+          {invList.length > 1 && (
+            <Button
+              type="danger"
+              className="dynamic-delete-button"
+              icon={<MinusCircleOutlined />}
+              onClick={() => handleTankRemove(index)}
+            >
+              Remove Above Tank
+            </Button>
+          )}
+          <Divider />
+          <Form.Item>
+            {invList.length - 1 === index && (
               <Button
                 type="dashed"
-                onClick={() => add()}
                 style={{ width: "60%" }}
+                onClick={handleTankAdd}
               >
                 <PlusOutlined /> Add Tank
               </Button>
-            </Form.Item>
-          </div>
-        );
-      }}
-    </Form.List>
+            )}
+          </Form.Item>
+        </div>
+      ))}
+    </div>
   );
 }
 

@@ -13,19 +13,18 @@ const defaultInventory = {
   tank: "",
   task_id: "",
   total_animals: null,
-  shell_lengths: "",
+  shell_lengths: ["", ""],
 };
 
 const InventoryForm = (props) => {
   const [inventoryForm, setInventoryForm] = useState(defaultInventory);
 
-  const formUpdateDate = (value) => {
+  const handleDateChange = (value) => {
     inventoryForm["inv_date"] = value;
     setInventoryForm(inventoryForm);
-    console.log(inventoryForm);
   };
 
-  const formUpdateSelect = (value, event) => {
+  const handleSelectChange = (value, event) => {
     inventoryForm[event.name] = value;
     setInventoryForm(inventoryForm);
     console.log(inventoryForm);
@@ -49,7 +48,7 @@ const InventoryForm = (props) => {
           <Select
             status="warning"
             style={{ width: "20%" }}
-            onSelect={(value, event) => formUpdateSelect(value, event)}
+            onSelect={(value, event) => handleSelectChange(value, event)}
           >
             <Option name="facility" value="PTMSC">
               Port Townsend Marine Science Center
@@ -67,7 +66,7 @@ const InventoryForm = (props) => {
             status="warning"
             style={{ width: "20%" }}
             name="task_id"
-            onSelect={(value, event) => formUpdateSelect(value, event)}
+            onSelect={(value, event) => handleSelectChange(value, event)}
           >
             <Option value="Inventory_0" name="task_id">
               Inventory 0
@@ -97,16 +96,13 @@ const InventoryForm = (props) => {
             name="inv_date"
             format={dateFormat}
             size="large"
-            onChange={(value, dateString) => formUpdateDate(dateString)}
+            onChange={(value, dateString) => handleDateChange(dateString)}
           />
         </Form.Item>
       </div>
       <div className="bottom-section">
         <Divider orientation="left">Tank Counts and Shell Lengths</Divider>
-        <AddTank
-          stateInvForm={inventoryForm}
-          setInventoryForm={setInventoryForm}
-        />
+        <AddTank invForm={inventoryForm} setInventoryForm={setInventoryForm} />
       </div>
       <Form.Item>
         <Button type="primary" htmlType="submit">

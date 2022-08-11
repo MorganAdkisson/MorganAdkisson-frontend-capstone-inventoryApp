@@ -43,7 +43,7 @@ function App() {
   };
   useEffect(fetchData, []);
 
-  //  Inventory
+  //  Inventory Form Submission
   const addInventory = (submittedForm) => {
     axios
       .post(`${URL}`, submittedForm)
@@ -95,7 +95,7 @@ function App() {
                 className="site-layout-background"
               >
                 <Routes>
-                  <Route exact path="/" element={<HomePage />} />
+                  <Route exact path="/" element={<HomePage data={invData} />} />
                   <Route
                     exact
                     path="/inventory"

@@ -45,8 +45,9 @@ function App() {
 
   //  Inventory Form Submission
   const addInventory = (submittedForm) => {
+    console.log("hello");
     axios
-      .post(`${URL}`, submittedForm)
+      .post(URL, submittedForm)
       .then((resp) => {
         console.log(resp);
       })
@@ -97,9 +98,12 @@ function App() {
                 <Routes>
                   <Route exact path="/" element={<HomePage data={invData} />} />
                   <Route
-                    exact
+                    // exact
                     path="/inventory"
-                    element={<InventoryPage addInvCallback={addInventory} />}
+                    // render={(props) => (
+                    // <InventoryPage addInventory={addInventory} />
+                    // )}
+                    element={<InventoryPage addInventory={addInventory} />}
                   />
                   <Route
                     exact

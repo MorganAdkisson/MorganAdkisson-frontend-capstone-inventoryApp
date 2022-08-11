@@ -94,12 +94,17 @@ const InventoryForm = (props) => {
   // Submit callback to axios call in App
   const handleSubmit = (event) => {
     const formattedInvList = invList.map((inv) => {
-      inv.shell_lengths = inv.shell_lengths.filter(Boolean).join(", ");
-      return inv;
+      if (Array.isArray(inv.shell_lengths)) {
+        inv.shell_lengths = inv.shell_lengths.filter(Boolean).join(", ");
+        return inv;
+      } else {
+        return inv;
+      }
     });
     console.log("Submit!");
-    event.preventDefault();
-    props.addInvCallback(formattedInvList[0]);
+    // console.log(props);
+    // event.preventDefault();
+    props.addInventory(formattedInvList[0]);
   };
 
   return (

@@ -1,10 +1,10 @@
 import InventoryForm from "./InventoryForm";
 
-function Inventory() {
+function Inventory(props) {
   return (
     <div>
       <h1>Inventory Page</h1>
-      <InventoryForm />
+      <InventoryForm addInventory={props.addInventory} />
     </div>
   );
 }

@@ -1,8 +1,8 @@
 import "./SideBar.css";
-import logo from "../images/PSRFAbLogo.png";
+import { useAuth } from "./auth";
 import React, { useState } from "react";
 import { Menu, Layout } from "antd";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, NavLink } from "react-router-dom";
 import {
   HomeOutlined,
   FormOutlined,
@@ -21,6 +21,11 @@ const { Sider } = Layout;
 const SideBar = () => {
   const [collapsed, setCollapsed] = useState(false);
   let navigate = useNavigate();
+
+  const auth = useAuth();
+  const handleLogout = () => {
+    auth.logout();
+  };
 
   return (
     <Sider
@@ -61,6 +66,8 @@ const SideBar = () => {
           },
         ]}
       />
+      {!auth.user && <NavLink to="/login">Login</NavLink>}
+      {auth.user && <button onClick={handleLogout}>Logout</button>}
     </Sider>
   );
 };

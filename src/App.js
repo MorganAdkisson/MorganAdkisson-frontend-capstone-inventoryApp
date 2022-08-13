@@ -3,6 +3,8 @@ import HomePage from "./components/HomePage";
 import DataPage from "./components/DataPage";
 import InventoryPage from "./components/InventoryPage";
 import SideBar from "./components/SideBar";
+import RequireAuth from "./components/RequireAuth";
+import { AuthProvider } from "./components/auth";
 import React, { useEffect, useState } from "react";
 import "antd/dist/antd.min.css";
 import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
@@ -10,6 +12,7 @@ import { Layout, Typography } from "antd";
 import axios from "axios";
 import PostAddIcon from "@mui/icons-material/PostAdd";
 import Button from "@material-ui/core/Button";
+import Login from "./components/Login";
 // import logo from "./images/logo-placeholder.png";
 const URL = "https://adkisson-capstone-front-end.herokuapp.com/inventory";
 
@@ -70,74 +73,85 @@ function App() {
   };
 
   return (
-    <div className="App">
-      <Router>
-        <Layout>
-          <Header className="header">
-            <Title style={{ color: "white" }}>
-              Pinto Abalone Recovery Project
-            </Title>
-            <Button
-              className="inventory-btn"
-              component={Link}
-              to="/inventory"
-              variant="contained"
-              startIcon={<PostAddIcon />}
+    <AuthProvider>
+      <div className="App">
+        <Router>
+          <Layout>
+            <Header className="header">
+              <Title style={{ color: "white" }}>
+                Pinto Abalone Recovery Project
+              </Title>
+              <Button
+                className="inventory-btn"
+                component={Link}
+                to="/inventory"
+                variant="contained"
+                startIcon={<PostAddIcon />}
+              >
+                Record New Inventory
+              </Button>
+            </Header>
+            <Layout
+              style={{
+                minHeight: "100vh",
+              }}
             >
-              Record New Inventory
-            </Button>
-          </Header>
-          <Layout
-            style={{
-              minHeight: "100vh",
-            }}
-          >
-            <SideBar />
-            <Layout className="site-layout">
-              <Header
-                className="site-layout-background"
-                style={{
-                  padding: 0,
-                }}
-              />
-              <Content
-                style={{
-                  margin: "0 16px",
-                  padding: 24,
-                  minHeight: 360,
-                }}
-                className="site-layout-background"
-              >
-                <Routes>
-                  <Route
-                    exact
-                    path="/"
-                    element={<HomePage data={invData} fetchData={fetchData} />}
-                  />
-                  <Route
-                    exact
-                    path="/inventory"
-                    element={<InventoryPage addInventory={addInventory} />}
-                  />
-                  <Route
-                    exact
-                    path="/data"
-                    element={<DataPage data={invData} fetchData={fetchData} />}
-                  />
-                </Routes>
-              </Content>
-              <Footer
-                style={{
-                  textAlign: "center",
-                }}
-              >
-                PSRF Inventory Mgmt ©2022
-              </Footer>
+              <SideBar />
+              <Layout className="site-layout">
+                <Header
+                  className="site-layout-background"
+                  style={{
+                    padding: 0,
+                  }}
+                />
+                <Content
+                  style={{
+                    margin: "0 16px",
+                    padding: 24,
+                    minHeight: 360,
+                  }}
+                  className="site-layout-background"
+                >
+                  <Routes>
+                    <Route
+                      exact
+                      path="/"
+                      element={
+                        <HomePage data={invData} fetchData={fetchData} />
+                      }
+                    />
+                    <Route
+                      exact
+                      path="/inventory"
+                      element={
+                        <RequireAuth>
+                          <InventoryPage addInventory={addInventory} />
+                        </RequireAuth>
+                      }
+                    />
+                    <Route
+                      exact
+                      path="/data"
+                      element={
+                        <DataPage data={invData} fetchData={fetchData} />
+                      }
+                    />
+                    <Route exact path="/login" element={<Login />} />
+                  </Routes>
+                </Content>
+                <Footer
+                  style={{
+                    textAlign: "center",
+                  }}
+                >
+                  PSRF Inventory Mgmt ©2022
+                </Footer>
+              </Layout>
             </Layout>
           </Layout>
-        </Layout>
-      </Router>
-    </div>
+        </Router>
+      </div>
+    </AuthProvider>
   );
 }
 

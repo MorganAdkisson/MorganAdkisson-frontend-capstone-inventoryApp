@@ -17,7 +17,7 @@ const { Header, Footer, Content } = Layout;
 const { Title } = Typography;
 
 function App() {
-  // Data
+  // Get all inv data
   const [invData, setData] = useState([]);
   const fetchData = () => {
     axios
@@ -41,19 +41,32 @@ function App() {
         alert("Unable to access inventory data!");
       });
   };
-  useEffect(fetchData, []);
+  useEffect(() => fetchData(), []);
 
-  //  Inventory Form Submission
-  const addInventory = (submittedForm) => {
-    console.log("hello");
-    axios
-      .post(URL, submittedForm)
-      .then((resp) => {
-        console.log(resp);
+  const addInventory = (submittedInv) => {
+    Promise.allSettled(
+      submittedInv.map((p) => {
+        return axios.post(URL, p).then((results) => {
+          console.log("**** Done with all calls ****");
+          results.forEach((result, idx) => {
+            console.log(`Result ${idx} status: ${result.status}`);
+            if (result.status === "fulfilled") {
+              const response = result.value;
+              console.log(
+                `Successfully posted : ${JSON.stringify(response.data)}\n`
+              );
+            } else {
+              const error = result.reason;
+              console.log(
+                `Failed to post ${error.response.config.data} - reason: ${error.message}`
+              );
+              console.log(JSON.parse(error.response.config.data));
+              console.log("\n");
+            }
+          });
+        });
       })
-      .catch((err) => {
-        console.log(err);
-      });
+    );
   };
 
   return (
@@ -96,19 +109,20 @@ function App() {
                 className="site-layout-background"
               >
                 <Routes>
-                  <Route exact path="/" element={<HomePage data={invData} />} />
                   <Route
-                    // exact
+                    exact
+                    path="/"
+                    element={<HomePage data={invData} fetchData={fetchData} />}
+                  />
+                  <Route
+                    exact
                     path="/inventory"
-                    // render={(props) => (
-                    // <InventoryPage addInventory={addInventory} />
-                    // )}
                     element={<InventoryPage addInventory={addInventory} />}
                   />
                   <Route
                     exact
                     path="/data"
-                    element={<DataPage data={invData} />}
+                    element={<DataPage data={invData} fetchData={fetchData} />}
                   />
                 </Routes>
               </Content>
@@ -128,13 +142,3 @@ function App() {
 }
 
 export default App;
-
-/* <div className="body">
-          <Layout>
-            <Sider className="sidebar">Sider</Sider>
-          </Layout>
-          <Layout>
-            <Content className="content-container">Content</Content>
-            <Footer>Footer</Footer>
-          </Layout>
-        </div> */

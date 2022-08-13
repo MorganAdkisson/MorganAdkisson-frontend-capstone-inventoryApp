@@ -18,11 +18,9 @@ const InventoryForm = (props) => {
     total_animals: null,
     shell_lengths: ["", "", "", "", "", "", "", "", "", ""],
   };
-
-  // const [inventoryForm, setInventoryForm] = useState(defaultInventory);
   const [invList, setInvList] = useState([{ ...defaultInventory }]);
 
-  // Tank Changes
+  // Tank specific changes
   const handleChange = (event, index, shellLengthIdx) => {
     const { name, value } = event.target;
     const newList = [...invList];
@@ -37,7 +35,6 @@ const InventoryForm = (props) => {
       setInvList(newList);
     }
   };
-  console.log(invList);
 
   const addShellLengths = (index) => {
     const additionalSL = ["", "", "", "", ""];
@@ -47,7 +44,7 @@ const InventoryForm = (props) => {
     setInvList(newList);
   };
 
-  // Tank Add or Remove
+  // Dynamic field - tank add or remove
   const handleTankAdd = () => {
     setInvList([...invList, { ...defaultInventory }]);
   };
@@ -58,7 +55,7 @@ const InventoryForm = (props) => {
     setInvList(newList);
   };
 
-  // Changes that need to happen to all objects
+  // Update general info for every inventory
   const handleDateChange = (value) => {
     setDate(value);
   };
@@ -91,7 +88,7 @@ const InventoryForm = (props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [facility, taskId, date]);
 
-  // Submit callback to axios call in App
+  // Submit callback to axios call in App()
   const handleSubmit = (event) => {
     const formattedInvList = invList.map((inv) => {
       if (Array.isArray(inv.shell_lengths)) {
@@ -102,9 +99,7 @@ const InventoryForm = (props) => {
       }
     });
     console.log("Submit!");
-    // console.log(props);
-    // event.preventDefault();
-    props.addInventory(formattedInvList[0]);
+    props.addInventory(formattedInvList);
   };
 
   return (
@@ -228,6 +223,7 @@ const InventoryForm = (props) => {
                 {singleTank.shell_lengths.map(
                   (singleLength, shellLengthIdx) => (
                     <Input
+                      key={shellLengthIdx}
                       style={{ width: 100 }}
                       onChange={(e) => handleChange(e, index, shellLengthIdx)}
                       name="shell_lengths"

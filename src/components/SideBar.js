@@ -1,4 +1,5 @@
 import "./SideBar.css";
+import logo from "../images/PSRFAbLogo.png";
 import React, { useState } from "react";
 import { Menu, Layout } from "antd";
 import { useNavigate } from "react-router-dom";
@@ -29,7 +30,6 @@ const SideBar = () => {
       collapsed={collapsed}
       onCollapse={(value) => setCollapsed(value)}
     >
-      {/* <img src={logo} className="logo" alt="logo" /> */}
       <Menu
         theme="dark"
         defaultSelectedKeys={["1"]}

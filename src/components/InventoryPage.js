@@ -4,6 +4,7 @@ function Inventory(props) {
   return (
     <div>
       <h1>Inventory Page</h1>
+      <br></br>
       <InventoryForm addInventory={props.addInventory} />
     </div>
   );

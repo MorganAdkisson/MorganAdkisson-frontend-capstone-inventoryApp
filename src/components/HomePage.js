@@ -1,90 +1,66 @@
 import React, { useState, useEffect } from "react";
 import { Line } from "react-chartjs-2";
+import { Chart as ChartJS } from "chart.js/auto";
 
 function Home(props) {
-  const [chartData, setChartData] = useState({});
-  // const [SAInventoryTotals, setSAInventoryTotals] = useState({});
+  useEffect(() => {
+    props.fetchData();
+    console.log("Home");
+  }, []);
 
-  const chart = () => {
-    // const seaAquTotals = { ...SAInventoryTotals };
-    let invId = [1, 2, 3, 4];
-    let total = [123, 321, 456, 234];
+  const SAMap = new Map();
+  const PTMSCMap = new Map();
+  for (const { facility, total_animals, task_id } of props.data) {
+    if (facility === "SA") {
+      const currSum = SAMap.get(task_id) || 0;
+      SAMap.set(task_id, currSum + total_animals);
+    }
+    if (facility === "PTMSC") {
+      const currSum = PTMSCMap.get(task_id) || 0;
+      PTMSCMap.set(task_id, currSum + total_animals);
+    }
+  }
+  const SAArray = Array.from(
+    new Map([...SAMap.entries()].sort()),
+    ([task_id, total_animals]) => ({
+      task_id,
+      total_animals,
+    })
+  );
+  const PTMSCArray = Array.from(
+    new Map([...PTMSCMap.entries()].sort()),
+    ([task_id, total_animals]) => ({
+      task_id,
+      total_animals,
+    })
+  );
+  console.log(SAArray, PTMSCArray);
 
-    // for (const row in props.data) {
-    //   invId.push(row.task_id);
-    //   total.push(parseInt(row.total_animals));
-    // }
+  // const chartLabels = data.map((data) => data.task_id);
+  // const invData = data.map((data) => data.total_animals);
 
-    // setChartData({
-    //   labels: invId,
-    //   datasets: [
-    //     {
-    //       label: "totals per tank per inventory",
-    //       data: total,
-    //       backgroundColor: ["rgba(75, 192, 192, 0.6)"],
-    //       borderWidth: 4,
-    //     },
-    //   ],
-    // });
-    //   if (row.facility === "SA") {
-    //     if (row.task_id in invId) {
-    //       seaAquTotals[row.task_id] = seaAquTotals[row.task_id] +=
-    //         row.total_animals;
-    //     } else {
-    //       seaAquTotals[row.task_id] = row.total_animals;
-    //     }
-    //   }
-    //   setSAInventoryTotals(seaAquTotals);
-    // }
-
-    // setChartData({
-    //   labels: "total animals",
-    //   datasets: [
-    //     {
-    //       label: Object.keys(seaAquTotals),
-    //       data: Object.keys(seaAquTotals).map(function (key) {
-    //         return seaAquTotals[key];
-    //       }),
-    //     },
-    //   ],
-    // });
-  };
-
-  // useEffect(() => {
-  //   chart();
-  // }, []);
+  const [chartData, setChartData] = useState({
+    labels: SAArray.map((inv) => inv.task_id),
+    datasets: [
+      {
+        label: "Seattle Aquarium",
+        data: SAArray.map((inv) => inv.total_animals),
+        backgroundColor: ["blue"],
+      },
+      {
+        label: "Port Townsend Marine Science Center",
+        data: PTMSCArray.map((inv) => inv.total_animals),
+        backgroundColor: ["red"],
+      },
+    ],
+  });
 
   return (
     <div>
       <h1>Home Page</h1>
-      <Line
-        data={chartData}
-        options={{
-          responsive: true,
-          title: { text: "Totals", display: true },
-          scales: {
-            yAxes: [
-              {
-                ticks: {
-                  autoSkip: true,
-                  maxTicksLimit: 10,
-                  beginAtZero: true,
-                },
-                gridLines: {
-                  display: false,
-                },
-              },
-            ],
-            xAxes: [
-              {
-                gridLines: {
-                  display: false,
-                },
-              },
-            ],
-          },
-        }}
-      />
+      <div style={{ width: 700 }}>
+        <Line data={chartData} />
+      </div>
     </div>
   );
 }

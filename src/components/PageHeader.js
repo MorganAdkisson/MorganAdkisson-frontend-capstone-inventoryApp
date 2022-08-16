@@ -1,8 +1,8 @@
 import { Button } from "antd";
 import { Header } from "antd/lib/layout/layout";
-import Title from "antd/lib/skeleton/Title";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "./auth";
+import "../styles/App.less";
 
 const PageHeader = () => {
   let navigate = useNavigate();
@@ -13,14 +13,42 @@ const PageHeader = () => {
 
   return (
     <Header className="header" style={{ height: "150px" }}>
-      <h1 style={{ color: "white", padding: "30px", fontSize: "50px" }}>
-        Pinto Abalone Recovery Project
+      <h1 style={{ color: "#B7D3E4", padding: "20px", fontSize: "45px" }}>
+        Satellite Facilities Inventory Management
       </h1>
       <div>
-        {!auth.user && (
-          <Button onClick={() => navigate("/login")}>Login</Button>
+        {!auth.passcode && (
+          <Button
+            onClick={() => navigate("/login")}
+            style={{
+              borderRadius: "10px",
+              borderWidth: "2px",
+              textAlign: "center",
+              lineHeight: "55px",
+              width: "120px",
+              height: "55px",
+              fontSize: "25px",
+            }}
+          >
+            Login
+          </Button>
         )}
-        {auth.user && <Button onClick={handleLogout}>Logout</Button>}
+        {auth.passcode && (
+          <Button
+            onClick={handleLogout}
+            style={{
+              borderRadius: "10px",
+              borderWidth: "2px",
+              textAlign: "center",
+              lineHeight: "55px",
+              width: "120px",
+              height: "55px",
+              fontSize: "25px",
+            }}
+          >
+            Logout
+          </Button>
+        )}
       </div>
     </Header>
   );

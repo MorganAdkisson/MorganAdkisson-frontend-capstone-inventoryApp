@@ -5,7 +5,7 @@ import { RightCircleOutlined } from "@ant-design/icons";
 import { Button } from "antd";
 
 const Login = () => {
-  const [user, setUser] = useState("");
+  const [passcode, setPasscode] = useState("");
   const auth = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
@@ -13,8 +13,16 @@ const Login = () => {
   const redirectPath = location.state?.path || "/";
 
   const handleLogin = () => {
-    auth.login(user);
-    navigate(redirectPath, { replace: true });
+    let hardcodedPasscode = {
+      passcode: "Haliotis7305",
+    };
+
+    if (passcode === hardcodedPasscode.passcode) {
+      auth.login(passcode);
+      navigate(redirectPath, { replace: true });
+    } else {
+      alert("Incorrect Passcode");
+    }
   };
 
   return (
@@ -22,7 +30,7 @@ const Login = () => {
       <h1 style={{ fontSize: 30 }}>Please Enter Passcode To Continue</h1>
       <label>
         Passcode:{" "}
-        <input type="text" onChange={(e) => setUser(e.target.value)} />
+        <input type="password" onChange={(e) => setPasscode(e.target.value)} />
       </label>
       <button onClick={handleLogin}>Enter</button>
     </div>

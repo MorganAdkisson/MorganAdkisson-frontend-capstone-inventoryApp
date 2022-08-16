@@ -16,6 +16,7 @@ function DataTable(props) {
   return (
     <div>
       <MaterialTable
+        className="data-table"
         title={"Satellite Facilities Inventory Data"}
         columns={tableColumns}
         data={props.data}

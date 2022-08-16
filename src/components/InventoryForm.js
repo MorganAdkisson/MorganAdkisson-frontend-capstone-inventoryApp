@@ -190,7 +190,7 @@ const InventoryForm = (props) => {
               >
                 {/* <Input.Group compact name="family"> */}
                 <Input
-                  placeholder="♀ x ♂"
+                  placeholder="♀    x    ♂"
                   name="family"
                   style={{ width: 150, textAlign: "center" }}
                   onChange={(e) => handleChange(e, index)}

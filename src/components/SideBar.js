@@ -30,14 +30,14 @@ const SideBar = () => {
     >
       <Menu
         theme="dark"
-        defaultSelectedKeys={["1"]}
+        defaultSelectedKeys={["dashboard"]}
         onClick={handleMenuItemSelect}
         selectedKeys={[key]}
         mode="inline"
       >
         <Menu.Item
           icon={<HomeOutlined />}
-          key="Dashboard"
+          key="dashboard"
           onClick={() => {
             navigate("/");
           }}
@@ -46,7 +46,7 @@ const SideBar = () => {
         </Menu.Item>
         <Menu.Item
           icon={<FormOutlined />}
-          key="Inventory"
+          key="inventory"
           onClick={() => {
             navigate("/inventory");
           }}
@@ -55,7 +55,7 @@ const SideBar = () => {
         </Menu.Item>
         <Menu.Item
           icon={<DatabaseOutlined />}
-          key="View Data"
+          key="view-data"
           onClick={() => {
             navigate("/data");
           }}

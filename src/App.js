@@ -1,4 +1,3 @@
-import "./App.css";
 import HomePage from "./components/HomePage";
 import DataPage from "./components/DataPage";
 import InventoryPage from "./components/InventoryPage";
@@ -6,7 +5,6 @@ import SideBar from "./components/SideBar";
 import RequireAuth from "./components/RequireAuth";
 import { AuthProvider, useAuth } from "./components/auth";
 import React, { useEffect, useState } from "react";
-import "antd/dist/antd.min.css";
 import {
   BrowserRouter as Router,
   Route,
@@ -18,8 +16,9 @@ import { Layout, Typography, Button } from "antd";
 import axios from "axios";
 import Login from "./components/Login";
 import PageHeader from "./components/PageHeader";
+import "./styles/antd.customize.less";
 // import logo from "./images/logo-placeholder.png";
-const URL = "https://adkisson-capstone-front-end.herokuapp.com/inventory";
+const URL = "https://adkisson-capstone-backend.herokuapp.com/inventory";
 
 const { Header, Footer, Content } = Layout;
 const { Title } = Typography;
@@ -134,7 +133,8 @@ function App() {
                     textAlign: "center",
                   }}
                 >
-                  PSRF Inventory Mgmt ©2022
+                  Puget Sound Restoration Fund: Inventory Mgmt © 2022 || Created
+                  By: Morgan Adkisson
                 </Footer>
               </Layout>
             </Layout>

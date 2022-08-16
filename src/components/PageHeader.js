@@ -13,11 +13,23 @@ const PageHeader = () => {
   };
 
   return (
-    <Header className="header" style={{ height: "150px" }}>
+    <Header className="header" style={{ height: "180px" }}>
       {/* <img src={PSRFlogo} alt="PSRF Logo" /> */}
-      <h1 style={{ color: "#B7D3E4", padding: "20px", fontSize: "45px" }}>
-        Satellite Facilities Inventory Management
-      </h1>
+      <div style={{ textAlign: "left", margin: "50px" }}>
+        <h1
+          style={{
+            color: "#B7D3E4",
+            fontSize: "65px",
+            fontStyle: "oblique",
+            fontWeight: 100,
+          }}
+        >
+          Pinto Abalone Recovery Project:
+        </h1>
+        <h2 style={{ fontSize: "40px", color: "#D5D5D5", textAlign: "center" }}>
+          Satellite Facilities Inventory Management
+        </h2>
+      </div>
       <div>
         {!auth.passcode && (
           <Button

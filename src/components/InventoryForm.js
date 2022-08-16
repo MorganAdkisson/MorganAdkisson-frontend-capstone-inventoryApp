@@ -103,12 +103,16 @@ const InventoryForm = (props) => {
   };
 
   return (
-    <Form onFinish={handleSubmit} autoComplete="off">
+    <Form
+      onFinish={handleSubmit}
+      onSubmit={(e) => e.preventDefault()}
+      autoComplete="off"
+    >
       <div className="top-section">
         <Divider orientation="left">General Inventory Information</Divider>
         <Form.Item
           label="Facility"
-          rules={[{ required: true, message: "Missing area" }]}
+          rules={[{ required: true, message: "Required Field" }]}
         >
           <Select
             status="warning"
@@ -125,7 +129,7 @@ const InventoryForm = (props) => {
         </Form.Item>
         <Form.Item
           label="Inventory ID"
-          rules={[{ required: true, message: "Missing area" }]}
+          rules={[{ required: true, message: "Required Field" }]}
         >
           <Select
             status="warning"
@@ -155,7 +159,7 @@ const InventoryForm = (props) => {
         </Form.Item>
         <Form.Item
           label="Inventory Date"
-          rules={[{ required: true, message: "Missing area" }]}
+          rules={[{ required: true, message: "Required Field" }]}
         >
           <DatePicker
             name="inv_date"

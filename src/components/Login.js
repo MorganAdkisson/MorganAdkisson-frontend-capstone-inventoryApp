@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useAuth } from "./auth";
+import { RightCircleOutlined } from "@ant-design/icons";
+import { Button } from "antd";
 
 const Login = () => {
   const [user, setUser] = useState("");
@@ -17,11 +19,12 @@ const Login = () => {
 
   return (
     <div>
+      <h1 style={{ fontSize: 30 }}>Please Enter Passcode To Continue</h1>
       <label>
-        Username:{" "}
+        Passcode:{" "}
         <input type="text" onChange={(e) => setUser(e.target.value)} />
       </label>
-      <button onClick={handleLogin}>Login</button>
+      <button onClick={handleLogin}>Enter</button>
     </div>
   );
 };

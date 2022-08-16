@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { Line } from "react-chartjs-2";
 import { Chart as ChartJS } from "chart.js/auto";
+import { Button } from "antd";
+import PostAddIcon from "@mui/icons-material/PostAdd";
 
 function Home(props) {
   useEffect(() => {
     props.fetchData();
-    console.log("Home");
   }, []);
 
   const SAMap = new Map();
@@ -39,7 +40,7 @@ function Home(props) {
   // const chartLabels = data.map((data) => data.task_id);
   // const invData = data.map((data) => data.total_animals);
 
-  const [chartData, setChartData] = useState({
+  const chartData = {
     labels: SAArray.map((inv) => inv.task_id),
     datasets: [
       {
@@ -53,13 +54,30 @@ function Home(props) {
         backgroundColor: ["red"],
       },
     ],
-  });
+  };
 
   return (
     <div>
-      <h1>Home Page</h1>
-      <div style={{ width: 700 }}>
-        <Line data={chartData} />
+      <Button
+        type="dashed"
+        href="/inventory"
+        icon={<PostAddIcon />}
+        style={{
+          float: "right",
+          justifyContent: "center",
+          alignItems: "center",
+          padding: "40px",
+        }}
+      >
+        Record New Inventory
+      </Button>
+      <h1 className="inv-header" style={{ fontSize: 30 }}>
+        Inventory Dashboard
+      </h1>
+      <div style={{ background: "#fff", padding: 80, minHeight: 600 }}>
+        <div>
+          <Line data={chartData} />
+        </div>
       </div>
     </div>
   );

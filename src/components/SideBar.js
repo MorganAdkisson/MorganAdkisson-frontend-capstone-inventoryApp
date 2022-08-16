@@ -2,7 +2,7 @@ import "./SideBar.css";
 import { useAuth } from "./auth";
 import React, { useState } from "react";
 import { Menu, Layout } from "antd";
-import { useNavigate, NavLink } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import {
   HomeOutlined,
   FormOutlined,
@@ -10,21 +10,14 @@ import {
 } from "@ant-design/icons";
 
 const { Sider } = Layout;
-// const menuItems = [
-//   getItem("Home", "1", <HomeOutlined />),
-//   getItem("New Inventory", "sub1", <FormOutlined />, [
-//     getItem("Seattle Aquarium", "2", <CaretRightFilled />),
-//     getItem("Port Townsend Marine Science Center", "3", <CaretRightFilled />),
-//   ]),
-//   getItem("View Data", "4", <DatabaseOutlined />),
-// ];
 const SideBar = () => {
   const [collapsed, setCollapsed] = useState(false);
+  const [key, setKey] = useState("");
   let navigate = useNavigate();
 
-  const auth = useAuth();
-  const handleLogout = () => {
-    auth.logout();
+  const handleMenuItemSelect = ({ key }) => {
+    console.log(key);
+    setKey(key);
   };
 
   return (
@@ -38,36 +31,38 @@ const SideBar = () => {
       <Menu
         theme="dark"
         defaultSelectedKeys={["1"]}
+        onClick={handleMenuItemSelect}
+        selectedKeys={[key]}
         mode="inline"
-        items={[
-          {
-            key: "1",
-            icon: <HomeOutlined />,
-            label: "Home",
-            onClick: () => {
-              navigate("/");
-            },
-          },
-          {
-            key: "2",
-            icon: <FormOutlined />,
-            label: "New Inventory",
-            onClick: () => {
-              navigate("/inventory");
-            },
-          },
-          {
-            key: "3",
-            icon: <DatabaseOutlined />,
-            label: "View Data",
-            onClick: () => {
-              navigate("/data");
-            },
-          },
-        ]}
-      />
-      {!auth.user && <NavLink to="/login">Login</NavLink>}
-      {auth.user && <button onClick={handleLogout}>Logout</button>}
+      >
+        <Menu.Item
+          icon={<HomeOutlined />}
+          key="Dashboard"
+          onClick={() => {
+            navigate("/");
+          }}
+        >
+          Dashboard
+        </Menu.Item>
+        <Menu.Item
+          icon={<FormOutlined />}
+          key="Inventory"
+          onClick={() => {
+            navigate("/inventory");
+          }}
+        >
+          Submit New Inventory
+        </Menu.Item>
+        <Menu.Item
+          icon={<DatabaseOutlined />}
+          key="View Data"
+          onClick={() => {
+            navigate("/data");
+          }}
+        >
+          View Inventory Data
+        </Menu.Item>
+      </Menu>
     </Sider>
   );
 };

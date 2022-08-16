@@ -4,15 +4,20 @@ import DataPage from "./components/DataPage";
 import InventoryPage from "./components/InventoryPage";
 import SideBar from "./components/SideBar";
 import RequireAuth from "./components/RequireAuth";
-import { AuthProvider } from "./components/auth";
+import { AuthProvider, useAuth } from "./components/auth";
 import React, { useEffect, useState } from "react";
 import "antd/dist/antd.min.css";
-import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
-import { Layout, Typography } from "antd";
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  Link,
+  useNavigate,
+} from "react-router-dom";
+import { Layout, Typography, Button } from "antd";
 import axios from "axios";
-import PostAddIcon from "@mui/icons-material/PostAdd";
-import Button from "@material-ui/core/Button";
 import Login from "./components/Login";
+import PageHeader from "./components/PageHeader";
 // import logo from "./images/logo-placeholder.png";
 const URL = "https://adkisson-capstone-front-end.herokuapp.com/inventory";
 
@@ -77,20 +82,7 @@ function App() {
       <div className="App">
         <Router>
           <Layout>
-            <Header className="header">
-              <Title style={{ color: "white" }}>
-                Pinto Abalone Recovery Project
-              </Title>
-              <Button
-                className="inventory-btn"
-                component={Link}
-                to="/inventory"
-                variant="contained"
-                startIcon={<PostAddIcon />}
-              >
-                Record New Inventory
-              </Button>
-            </Header>
+            <PageHeader />
             <Layout
               style={{
                 minHeight: "100vh",
@@ -98,12 +90,6 @@ function App() {
             >
               <SideBar />
               <Layout className="site-layout">
-                <Header
-                  className="site-layout-background"
-                  style={{
-                    padding: 0,
-                  }}
-                />
                 <Content
                   style={{
                     margin: "0 16px",
@@ -117,7 +103,9 @@ function App() {
                       exact
                       path="/"
                       element={
+                        // <RequireAuth>
                         <HomePage data={invData} fetchData={fetchData} />
+                        // </RequireAuth>
                       }
                     />
                     <Route
@@ -133,7 +121,9 @@ function App() {
                       exact
                       path="/data"
                       element={
+                        // <RequireAuth>
                         <DataPage data={invData} fetchData={fetchData} />
+                        // </RequireAuth>
                       }
                     />
                     <Route exact path="/login" element={<Login />} />

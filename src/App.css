@@ -48,19 +48,6 @@
   height: 150rem;
 } */
 
-.inventory-btn {
-  font-size: 15px;
-  width: 200px;
-  height: 50px;
-  border-style: double;
-  border-width: 5px;
-  margin-right: 5%;
-}
-
-.inventory-btn:hover {
-  background-color: #f3c88c;
-}
-
 .logo {
   height: 4rem;
   margin: 16px;
@@ -72,6 +59,8 @@
 }
 
 .inventory-btn {
-  text-align: center;
-  font-size: 10px;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  padding: 20px
 }

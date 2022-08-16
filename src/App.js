@@ -3,25 +3,17 @@ import DataPage from "./components/DataPage";
 import InventoryPage from "./components/InventoryPage";
 import SideBar from "./components/SideBar";
 import RequireAuth from "./components/RequireAuth";
-import { AuthProvider, useAuth } from "./components/auth";
+import { AuthProvider } from "./components/auth";
 import React, { useEffect, useState } from "react";
-import {
-  BrowserRouter as Router,
-  Route,
-  Routes,
-  Link,
-  useNavigate,
-} from "react-router-dom";
-import { Layout, Typography, Button } from "antd";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { Layout } from "antd";
 import axios from "axios";
 import Login from "./components/Login";
 import PageHeader from "./components/PageHeader";
 import "./styles/antd.customize.less";
-// import logo from "./images/logo-placeholder.png";
 const URL = "https://adkisson-capstone-backend.herokuapp.com/inventory";
 
-const { Header, Footer, Content } = Layout;
-const { Title } = Typography;
+const { Footer, Content } = Layout;
 
 function App() {
   // Get all inv data

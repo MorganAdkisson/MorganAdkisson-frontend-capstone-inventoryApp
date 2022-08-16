@@ -3,6 +3,7 @@ import { Header } from "antd/lib/layout/layout";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "./auth";
 import "../styles/App.less";
+// import PSRFlogo from "../images/PSRFAbLogo.png";
 
 const PageHeader = () => {
   let navigate = useNavigate();
@@ -13,6 +14,7 @@ const PageHeader = () => {
 
   return (
     <Header className="header" style={{ height: "150px" }}>
+      {/* <img src={PSRFlogo} alt="PSRF Logo" /> */}
       <h1 style={{ color: "#B7D3E4", padding: "20px", fontSize: "45px" }}>
         Satellite Facilities Inventory Management
       </h1>

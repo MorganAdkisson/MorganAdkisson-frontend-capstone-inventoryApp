@@ -82,8 +82,10 @@ function Home(props) {
       <h1 className="inv-header" style={{ fontSize: 30 }}>
         Inventory Dashboard
       </h1>
-      <div style={{ padding: "100px" }}>
-        <Line data={chartData} />
+      <div style={{ background: "#fff", padding: 80, minHeight: 600 }}>
+        <div style={{ padding: "100px" }}>
+          <Line data={chartData} />
+        </div>
       </div>
     </div>
   );
@@ -91,7 +93,6 @@ function Home(props) {
 
 export default Home;
 
-// <div style={{ background: "#fff", padding: 80, minHeight: 600 }}>
 //   <div
 //     style={{
 //       padding: "50px",

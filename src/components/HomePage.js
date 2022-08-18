@@ -60,6 +60,68 @@ function Home(props) {
   //   PTMSC: PTMSCArray[PTMSCArray.length - 1]["total_animals"],
   // };
 
+  // const returnTotals = (totals) => {
+  //   <div
+  //     style={{
+  //       padding: "50px",
+  //       paddingBottom: "120px",
+  //       border: "1px solid rgba(0, 0, 0, 0.5)",
+  //       backgroundColor: "#D5D5D5",
+  //     }}
+  //   >
+  //     <Space
+  //       direction="horizontal"
+  //       size="middle"
+  //       style={{
+  //         display: "flex",
+  //         justifyContent: "space-evenly",
+  //       }}
+  //     >
+  //       <Card
+  //         bordered="true"
+  //         hoverable
+  //         style={{
+  //           width: 500,
+  //           height: 300,
+  //           backgroundColor: "#B7D3E4",
+  //           borderRadius: "15px",
+  //           borderWidth: "2px",
+  //         }}
+  //         cover={
+  //           <img alt="PTMSC" src={PTMSClogo} style={{ padding: "80px 10px" }} />
+  //         }
+  //       >
+  //         Latest Inventory Count:{" "}
+  //         <h1 style={{ fontSize: "50px", textAlign: "center" }}>
+  //           {totals["PTMSC"]}
+  //         </h1>
+  //       </Card>
+  //       <Card
+  //         hoverable
+  //         style={{
+  //           width: 500,
+  //           height: 300,
+  //           backgroundColor: "#C86A4E",
+  //           borderRadius: "15px",
+  //           borderWidth: "2px",
+  //         }}
+  //         cover={
+  //           <img
+  //             alt="Seattle Aquarium"
+  //             src={SAlogo}
+  //             style={{ padding: "15px 100px" }}
+  //           />
+  //         }
+  //       >
+  //         Latest Inventory Count:{" "}
+  //         <h1 style={{ fontSize: "50px", textAlign: "center" }}>
+  //           {totals["SA"]}
+  //         </h1>
+  //       </Card>
+  //     </Space>
+  //   </div>;
+  // };
+
   return (
     <div>
       <Button
@@ -83,6 +145,9 @@ function Home(props) {
         Inventory Dashboard
       </h1>
       <div style={{ background: "#fff", padding: 80, minHeight: 600 }}>
+        {/* <div>
+          {returnTotals(facilityCurrentTotals)}
+          </div> */}
         <div style={{ padding: "100px" }}>
           <Line data={chartData} />
         </div>
@@ -92,67 +157,3 @@ function Home(props) {
 }
 
 export default Home;
-
-//   <div
-//     style={{
-//       padding: "50px",
-//       paddingBottom: "120px",
-//       border: "1px solid rgba(0, 0, 0, 0.5)",
-//       backgroundColor: "#D5D5D5",
-//     }}
-//   >
-//     <Space
-//       direction="horizontal"
-//       size="middle"
-//       style={{
-//         display: "flex",
-//         justifyContent: "space-evenly",
-//       }}
-//     >
-//       <Card
-//         bordered="true"
-//         hoverable
-//         style={{
-//           width: 500,
-//           height: 300,
-//           backgroundColor: "#B7D3E4",
-//           borderRadius: "15px",
-//           borderWidth: "2px",
-//         }}
-//         cover={
-//           <img
-//             alt="PTMSC"
-//             src={PTMSClogo}
-//             style={{ padding: "80px 10px" }}
-//           />
-//         }
-//       >
-//         Latest Inventory Count:{" "}
-//         <h1 style={{ fontSize: "50px", textAlign: "center" }}>
-//           {facilityCurrentTotals["PTMSC"]}
-//         </h1>
-//       </Card>
-//       <Card
-//         hoverable
-//         style={{
-//           width: 500,
-//           height: 300,
-//           backgroundColor: "#C86A4E",
-//           borderRadius: "15px",
-//           borderWidth: "2px",
-//         }}
-//         cover={
-//           <img
-//             alt="Seattle Aquarium"
-//             src={SAlogo}
-//             style={{ padding: "15px 100px" }}
-//           />
-//         }
-//       >
-//         Latest Inventory Count:{" "}
-//         <h1 style={{ fontSize: "50px", textAlign: "center" }}>
-//           {facilityCurrentTotals["SA"]}
-//         </h1>
-//       </Card>
-//     </Space>
-//   </div>

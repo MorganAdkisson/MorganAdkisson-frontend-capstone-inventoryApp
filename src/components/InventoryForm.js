@@ -6,6 +6,7 @@ const { Option } = Select;
 const dateFormat = "MM/DD/YYYY";
 
 const InventoryForm = (props) => {
+  const [formSubmitted, setFormSubmitted] = useState(false);
   const [date, setDate] = useState(null);
   const [facility, setFacility] = useState("");
   const [taskId, setTaskId] = useState("");
@@ -100,178 +101,186 @@ const InventoryForm = (props) => {
     });
     console.log("Submit!");
     props.addInventory(formattedInvList);
+    // form.resetFields();
+    setFormSubmitted(true);
   };
 
+  // Submitted page
+  const toggleSubmit = () => {
+    setFormSubmitted((current) => !current);
+  };
+
+  useEffect(() => {
+    console.log("New Inventory");
+  }, [formSubmitted]);
+
   return (
-    <Form
-      onFinish={handleSubmit}
-      onSubmit={(e) => e.preventDefault()}
-      autoComplete="off"
-    >
-      <div className="top-section">
-        <Divider orientation="left">General Inventory Information</Divider>
-        <Form.Item
-          label="Facility"
-          rules={[{ required: true, message: "Required Field" }]}
-        >
-          <Select
-            status="warning"
-            style={{ width: "20%" }}
-            onSelect={(value, event) => handleGeneralInvChange(value, event)}
-          >
-            <Option name="facility" value="PTMSC">
-              Port Townsend Marine Science Center
-            </Option>
-            <Option name="facility" value="SA">
-              Seattle Aquarium
-            </Option>
-          </Select>
-        </Form.Item>
-        <Form.Item
-          label="Inventory ID"
-          rules={[{ required: true, message: "Required Field" }]}
-        >
-          <Select
-            status="warning"
-            style={{ width: "20%" }}
-            name="task_id"
-            onSelect={(value, event) => handleGeneralInvChange(value, event)}
-          >
-            <Option value="Inventory_0" name="task_id">
-              Inventory 0
-            </Option>
-            <Option value="Inventory_1" name="task_id">
-              Inventory 1
-            </Option>
-            <Option value="Inventory_2" name="task_id">
-              Inventory 2
-            </Option>
-            <Option value="Inventory_3" name="task_id">
-              Inventory 3
-            </Option>
-            <Option value="Inventory_4" name="task_id">
-              Inventory 4
-            </Option>
-            <Option value="Inventory_5" name="task_id">
-              Inventory 5
-            </Option>
-          </Select>
-        </Form.Item>
-        <Form.Item
-          label="Inventory Date"
-          rules={[{ required: true, message: "Required Field" }]}
-        >
-          <DatePicker
-            name="inv_date"
-            format={dateFormat}
-            size="large"
-            onChange={(value, dateString) => handleDateChange(dateString)}
-          />
-        </Form.Item>
-      </div>
-      <div className="bottom-section">
-        <Divider orientation="left">Tank Counts and Shell Lengths</Divider>
+    <div>
+      {formSubmitted === true && (
         <div>
-          {invList.map((singleTank, index) => (
-            <div key={index}>
-              <Form.Item
-                label="Tank"
-                rules={[{ required: true, message: "Required Field" }]}
-              >
-                <Input
-                  style={{ width: 200 }}
-                  name="tank"
-                  onChange={(e) => handleChange(e, index)}
-                />
-              </Form.Item>
-              <Form.Item
-                label="Family"
-                rules={[{ required: true, message: "Required Field" }]}
-              >
-                {/* <Input.Group compact name="family"> */}
-                <Input
-                  placeholder="♀    x    ♂"
-                  name="family"
-                  style={{ width: 150, textAlign: "center" }}
-                  onChange={(e) => handleChange(e, index)}
-                />
-                {/* <Input
-                placeholder="x"
-                style={{
-                  width: 30,
-                  borderLeft: 0,
-                  borderRight: 0,
-                  pointerEvents: "none",
-                }}
-                disabled
-              />
-              <Input
-                placeholder="♂"
-                name="male"
-                style={{ width: 150, textAlign: "center" }}
-                onChange={(e) => handleChange(e, index)}
-              />
-            </Input.Group> */}
-              </Form.Item>
-              <Form.Item
-                label="Total Animals"
-                rules={[{ required: true, message: "Required Field" }]}
-              >
-                <Input
-                  style={{ width: 200 }}
-                  name="total_animals"
-                  onChange={(e) => handleChange(e, index)}
-                />
-              </Form.Item>
-              <Form.Item label="Shell Lengths">
-                {singleTank.shell_lengths.map(
-                  (singleLength, shellLengthIdx) => (
-                    <Input
-                      key={shellLengthIdx}
-                      style={{ width: 100 }}
-                      onChange={(e) => handleChange(e, index, shellLengthIdx)}
-                      name="shell_lengths"
-                    />
-                  )
-                )}
-              </Form.Item>
-              <Button onClick={() => addShellLengths(index)}>
-                {" "}
-                + 5 shell lengths{" "}
-              </Button>
-              <br></br>
-              {invList.length > 1 && (
-                <Button
-                  type="danger"
-                  className="dynamic-delete-button"
-                  icon={<MinusCircleOutlined />}
-                  onClick={() => handleTankRemove(index)}
-                >
-                  Remove Above Tank
-                </Button>
-              )}
-              <Divider />
-              <Form.Item>
-                {invList.length - 1 === index && (
-                  <Button
-                    type="dashed"
-                    style={{ width: "60%" }}
-                    onClick={handleTankAdd}
-                  >
-                    <PlusOutlined /> Add Tank
-                  </Button>
-                )}
-              </Form.Item>
-            </div>
-          ))}
+          <Button onClick={toggleSubmit}>Click To Submit New Inventory</Button>
         </div>
-      </div>
-      <Form.Item>
-        <Button type="primary" htmlType="submit">
-          Submit
-        </Button>
-      </Form.Item>
-    </Form>
+      )}
+      {formSubmitted === false && (
+        <Form
+          onFinish={handleSubmit}
+          onSubmit={(e) => e.preventDefault()}
+          autoComplete="off"
+        >
+          <div className="top-section">
+            <Divider orientation="left">General Inventory Information</Divider>
+            <Form.Item
+              label="Facility"
+              rules={[{ required: true, message: "Required Field" }]}
+            >
+              <Select
+                status="warning"
+                style={{ width: "20%" }}
+                onSelect={(value, event) =>
+                  handleGeneralInvChange(value, event)
+                }
+              >
+                <Option name="facility" value="PTMSC">
+                  Port Townsend Marine Science Center
+                </Option>
+                <Option name="facility" value="SA">
+                  Seattle Aquarium
+                </Option>
+              </Select>
+            </Form.Item>
+            <Form.Item
+              label="Inventory ID"
+              rules={[{ required: true, message: "Required Field" }]}
+            >
+              <Select
+                status="warning"
+                style={{ width: "20%" }}
+                name="task_id"
+                onSelect={(value, event) =>
+                  handleGeneralInvChange(value, event)
+                }
+              >
+                <Option value="Inventory_0" name="task_id">
+                  Inventory 0
+                </Option>
+                <Option value="Inventory_1" name="task_id">
+                  Inventory 1
+                </Option>
+                <Option value="Inventory_2" name="task_id">
+                  Inventory 2
+                </Option>
+                <Option value="Inventory_3" name="task_id">
+                  Inventory 3
+                </Option>
+                <Option value="Inventory_4" name="task_id">
+                  Inventory 4
+                </Option>
+                <Option value="Inventory_5" name="task_id">
+                  Inventory 5
+                </Option>
+              </Select>
+            </Form.Item>
+            <Form.Item
+              label="Inventory Date"
+              rules={[{ required: true, message: "Required Field" }]}
+            >
+              <DatePicker
+                name="inv_date"
+                format={dateFormat}
+                size="large"
+                onChange={(value, dateString) => handleDateChange(dateString)}
+              />
+            </Form.Item>
+          </div>
+          <div className="bottom-section">
+            <Divider orientation="left">Tank Counts and Shell Lengths</Divider>
+            <div>
+              {invList.map((singleTank, index) => (
+                <div key={index}>
+                  <Form.Item
+                    label="Tank"
+                    rules={[{ required: true, message: "Required Field" }]}
+                  >
+                    <Input
+                      style={{ width: 200 }}
+                      name="tank"
+                      onChange={(e) => handleChange(e, index)}
+                    />
+                  </Form.Item>
+                  <Form.Item
+                    label="Family"
+                    rules={[{ required: true, message: "Required Field" }]}
+                  >
+                    <Input
+                      placeholder="♀    x    ♂"
+                      name="family"
+                      style={{ width: 150, textAlign: "center" }}
+                      onChange={(e) => handleChange(e, index)}
+                    />
+                  </Form.Item>
+                  <Form.Item
+                    label="Total Animals"
+                    rules={[{ required: true, message: "Required Field" }]}
+                  >
+                    <Input
+                      style={{ width: 200 }}
+                      name="total_animals"
+                      onChange={(e) => handleChange(e, index)}
+                    />
+                  </Form.Item>
+                  <Form.Item label="Shell Lengths">
+                    {singleTank.shell_lengths.map(
+                      (singleLength, shellLengthIdx) => (
+                        <Input
+                          key={shellLengthIdx}
+                          style={{ width: 100 }}
+                          onChange={(e) =>
+                            handleChange(e, index, shellLengthIdx)
+                          }
+                          name="shell_lengths"
+                        />
+                      )
+                    )}
+                  </Form.Item>
+                  <Button onClick={() => addShellLengths(index)}>
+                    {" "}
+                    + 5 shell lengths{" "}
+                  </Button>
+                  <br></br>
+                  {invList.length > 1 && (
+                    <Button
+                      type="danger"
+                      className="dynamic-delete-button"
+                      icon={<MinusCircleOutlined />}
+                      onClick={() => handleTankRemove(index)}
+                    >
+                      Remove Above Tank
+                    </Button>
+                  )}
+                  <Divider />
+                  <Form.Item>
+                    {invList.length - 1 === index && (
+                      <Button
+                        type="dashed"
+                        style={{ width: "60%" }}
+                        onClick={handleTankAdd}
+                      >
+                        <PlusOutlined /> Add Tank
+                      </Button>
+                    )}
+                  </Form.Item>
+                </div>
+              ))}
+            </div>
+          </div>
+          <Form.Item>
+            <Button type="primary" htmlType="submit">
+              Submit
+            </Button>
+          </Form.Item>
+        </Form>
+      )}
+    </div>
   );
 };
 

@@ -178,6 +178,21 @@ const InventoryForm = (props) => {
                 <Option value="Inventory_5" name="task_id">
                   Inventory 5
                 </Option>
+                <Option value="Inventory_6" name="task_id">
+                  Inventory 6
+                </Option>
+                <Option value="Inventory_7" name="task_id">
+                  Inventory 7
+                </Option>
+                <Option value="Inventory_8" name="task_id">
+                  Inventory 8
+                </Option>
+                <Option value="Inventory_9" name="task_id">
+                  Inventory 9
+                </Option>
+                <Option value="Inventory_10" name="task_id">
+                  Inventory 10
+                </Option>
               </Select>
             </Form.Item>
             <Form.Item
